@@ -1,5 +1,4 @@
 import { Inspirations, InspirationLink } from "../components/Inspirations";
-import { ParallaxHero } from "../components/ParallaxHero";
 
 export function Home() {
   const links: InspirationLink[] = [
