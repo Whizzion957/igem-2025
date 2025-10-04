@@ -1,0 +1,5 @@
+{
+  "rewrites": [
+    { "source": "/iit-roorkee/(.*)", "destination": "/$1" }
+  ]
+}
