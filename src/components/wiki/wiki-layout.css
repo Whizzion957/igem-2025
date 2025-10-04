@@ -1,0 +1,405 @@
+/* iGEM Wiki Layout CSS - IIT Roorkee Color Scheme */
+
+:root {
+  --igem-dark: #0A3C7D;
+  --igem-mid: #1F66C1;
+  --igem-light: #4DA3FF;
+  --igem-bg: #f8f9fa;
+  --igem-surface: #ffffff;
+  --igem-border: #e9ecef;
+  --igem-text: #2c3e50;
+  --igem-muted: #666;
+  
+  --shadow-sm: 0 2px 8px rgba(10, 60, 125, 0.08);
+  --shadow-md: 0 4px 20px rgba(10, 60, 125, 0.12);
+  --shadow-lg: 0 6px 30px rgba(10, 60, 125, 0.15);
+  
+  --space-xs: 8px;
+  --space-sm: 16px;
+  --space-md: 24px;
+  --space-lg: 40px;
+  
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 12px;
+}
+
+/* Layout */
+.wiki-page-container {
+  display: flex;
+  min-height: 100vh;
+  position: relative;
+  background: var(--igem-bg);
+}
+
+/* Progress Bar */
+.wiki-progress-bar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 4px;
+  background: linear-gradient(180deg, var(--igem-light), var(--igem-dark));
+  z-index: 1001;
+  transition: height 0.1s ease;
+}
+
+/* Sidebar */
+.wiki-sidebar {
+  width: 280px;
+  background: linear-gradient(135deg, var(--igem-bg), var(--igem-bg));
+  color: var(--igem-dark);
+  position: sticky;
+  left: 0;
+  top: 80px;
+  height: calc(100vh);
+  overflow-y: auto;
+  z-index: 1000;
+  box-shadow: var(--shadow-md);
+  transition: transform 0.3s ease;
+  border: 1px solid var(--igem-border);
+  border-radius: var(--radius-md);
+}
+
+.wiki-sidebar-title {
+  padding: var(--space-md);
+  font-size: 1.5rem;
+  font-weight: 700;
+  border-bottom: 2px solid var(--igem-light);
+  margin: 0;
+  color: var(--igem-dark);
+}
+
+.wiki-toc-nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.wiki-toc-nav li {
+  border-bottom: 1px solid var(--igem-border);
+}
+
+.wiki-toc-link {
+  display: block;
+  width: 100%;
+  padding: var(--space-sm) var(--space-md);
+  color: var(--igem-text);
+  text-align: left;
+  text-decoration: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  font-size: 1rem;
+  font-family: inherit;
+}
+
+.wiki-toc-link:hover {
+  background: rgba(77, 163, 255, 0.1);
+  padding-left: calc(var(--space-md) + 10px);
+  color: var(--igem-mid);
+}
+
+.wiki-toc-link.active {
+  background: rgba(77, 163, 255, 0.15);
+  border-left: 4px solid var(--igem-mid);
+  font-weight: 600;
+  color: var(--igem-dark);
+}
+
+.wiki-back-to-top {
+  display: block;
+  width: 100%;
+  padding: var(--space-md);
+  color: var(--igem-mid);
+  text-align: left;
+  background: none;
+  border: none;
+  border-top: 2px solid var(--igem-border);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+  font-family: inherit;
+}
+
+.wiki-back-to-top:hover {
+  background: rgba(77, 163, 255, 0.1);
+  color: var(--igem-dark);
+}
+
+/* Main Content */
+.wiki-main-content {
+  flex: 1;
+  margin-left: 28px;
+  padding: var(--space-lg);
+}
+
+/* Content Section */
+.wiki-content-section {
+  background: var(--igem-surface);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  margin-bottom: var(--space-lg);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--igem-border);
+  scroll-margin-top: 100px;
+}
+
+.wiki-section-heading {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--igem-dark); 
+  margin: 0 0 var(--space-md) 0;
+  padding-bottom: var(--space-sm);
+  border-bottom: 3px solid var(--igem-mid);
+  position: relative;
+}
+
+.wiki-section-heading::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background: var(--igem-light);
+}
+
+.wiki-subsection {
+  margin: var(--space-md) 0;
+}
+
+.wiki-subsection-heading {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: var(--space-md) 0 var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  border-left: 4px solid var(--igem-mid);
+  background: linear-gradient(90deg, rgba(31, 102, 193, 0.1), transparent);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  color: var(--igem-dark);
+}
+
+/* Summary Cards */
+.wiki-summary-card {
+  background: linear-gradient(135deg, rgba(77, 163, 255, 0.05), rgba(31, 102, 193, 0.05));
+  border: 2px solid var(--igem-light);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  margin-bottom: var(--space-md);
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.wiki-summary-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.wiki-card-icon {
+  font-size: 2rem;
+  margin-bottom: var(--space-sm);
+  color: var(--igem-mid);
+}
+
+.wiki-card-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--igem-dark);
+  margin: 0 0 var(--space-sm) 0;
+}
+
+.wiki-card-content {
+  color: var(--igem-text);
+  line-height: 1.65;
+}
+
+/* Lists */
+.wiki-content-list {
+  margin: var(--space-md) 0;
+  padding-left: var(--space-md);
+  color: var(--igem-text);
+}
+
+.wiki-content-list li {
+  margin-bottom: 10px;
+  line-height: 1.65;
+}
+
+.wiki-content-list li::marker {
+  color: var(--igem-mid);
+  font-weight: bold;
+}
+
+/* Images */
+.wiki-image-figure {
+  margin: var(--space-md) 0;
+  text-align: center;
+}
+
+.wiki-content-image {
+  max-width: 100%;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.3s ease;
+}
+
+.wiki-content-image:hover {
+  transform: scale(1.02);
+}
+
+.wiki-image-caption {
+  font-size: 0.9rem;
+  font-style: italic;
+  color: var(--igem-muted);
+  margin-top: var(--space-xs);
+}
+
+/* Collapsible */
+.wiki-collapsible {
+  margin: var(--space-md) 0;
+  border: 2px solid var(--igem-light);
+  border-radius: var(--radius-md);
+  padding: var(--space-sm) var(--space-md);
+  background: rgba(77, 163, 255, 0.05);
+  cursor: pointer;
+}
+
+.wiki-collapsible-summary {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--igem-dark);
+  cursor: pointer;
+  list-style: none;
+  padding: var(--space-sm) 0;
+}
+
+.wiki-collapsible-summary::-webkit-details-marker {
+  display: none;
+}
+
+.wiki-collapsible-summary::before {
+  content: '▶';
+  display: inline-block;
+  margin-right: var(--space-sm);
+  transition: transform 0.3s ease;
+  color: var(--igem-mid);
+}
+
+.wiki-collapsible[open] .wiki-collapsible-summary::before {
+  transform: rotate(90deg);
+}
+
+.wiki-collapsible[open] {
+  background: var(--igem-surface);
+  box-shadow: var(--shadow-sm);
+}
+
+.wiki-collapsible-content {
+  padding-top: var(--space-md);
+  border-top: 1px solid var(--igem-border);
+  margin-top: var(--space-sm);
+}
+
+/* Text Formatting */
+.wiki-paragraph {
+  margin: var(--space-sm) 0;
+  line-height: 1.7;
+  color: var(--igem-text);
+  font-size: 1rem;
+}
+
+.wiki-bold {
+  font-weight: 700;
+  color: var(--igem-dark);
+}
+
+.wiki-italic {
+  font-style: italic;
+}
+
+.wiki-underline {
+  text-decoration: underline;
+  text-decoration-color: var(--igem-light);
+  text-underline-offset: 3px;
+}
+
+/* References */
+.wiki-references-section {
+  background: linear-gradient(135deg, var(--igem-bg), #e9ecef);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  border-left: 5px solid var(--igem-mid);
+  margin-top: var(--space-lg);
+}
+
+.wiki-references-section h3 {
+  color: var(--igem-dark);
+  margin-bottom: var(--space-md);
+  font-weight: 700;
+}
+
+.wiki-references-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.wiki-reference-item {
+  padding: var(--space-sm) var(--space-md);
+  background: var(--igem-surface);
+  border-radius: var(--radius-sm);
+  border-left: 3px solid var(--igem-light);
+  font-size: 0.9rem;
+  color: var(--igem-text);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .wiki-sidebar {
+    transform: translateX(-100%);
+  }
+
+  .wiki-sidebar.open {
+    transform: translateX(0);
+  }
+
+  .wiki-main-content {
+    margin-left: 4px;
+    max-width: calc(100% - 4px);
+    padding: var(--space-md);
+  }
+
+  .wiki-section-heading {
+    font-size: 1.5rem;
+  }
+
+  .wiki-subsection-heading {
+    font-size: 1.25rem;
+  }
+}
+
+/* Smooth Scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom Scrollbar for Sidebar */
+.wiki-sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.wiki-sidebar::-webkit-scrollbar-track {
+  background: var(--igem-bg);
+}
+
+.wiki-sidebar::-webkit-scrollbar-thumb {
+  background: var(--igem-light);
+  border-radius: 3px;
+}
+
+.wiki-sidebar::-webkit-scrollbar-thumb:hover {
+  background: var(--igem-mid);
+}
