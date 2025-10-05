@@ -12,6 +12,125 @@ interface WikiLayoutProps {
   children: React.ReactNode;
 }
 
+type WikiCodeProps = {
+  language?: string;
+  children: string; // code as string
+  copyable?: boolean;
+  showLineNumbers?: boolean;
+};
+
+export function WikiCode({ language = 'text', children, copyable = true, showLineNumbers = false }: WikiCodeProps) {
+  const codeRef = useRef<HTMLElement | null>(null);
+  const [copied, setCopied] = useState(false);
+
+  useEffect(() => {
+    // If Prism or hljs is present globally, try to highlight.
+    // This will silently do nothing if those libraries are not included.
+    const el = codeRef.current as HTMLElement | null;
+    if (!el) return;
+    if (typeof (window as any).Prism !== 'undefined' && (window as any).Prism.highlightElement) {
+      (window as any).Prism.highlightElement(el);
+    }
+    if (typeof (window as any).hljs !== 'undefined' && (window as any).hljs.highlightElement) {
+      (window as any).hljs.highlightElement(el);
+    }
+  }, [language, children]);
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(children);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1600);
+    } catch (e) {
+      console.error('Copy failed', e);
+    }
+  };
+
+  // optional line number rendering
+  const codeLines = children.replace(/\n$/,'').split('\n');
+
+  return (
+    <div className="wiki-code-block">
+      <div className="wiki-code-header">
+        <span className="wiki-code-badge">{language}</span>
+        <div className="wiki-code-toolbar">
+          {copyable && (
+            <button className="wiki-code-copy" onClick={handleCopy} aria-label="Copy code">
+              {copied ? 'Copied' : 'Copy'}
+            </button>
+          )}
+        </div>
+      </div>
+
+      <pre className={`wiki-code-pre language-${language}`}>
+        <code ref={codeRef} className={`language-${language}`}>
+          {showLineNumbers ? (
+            <div className="wiki-code-with-lines">
+              <div className="wiki-code-gutter">
+                {codeLines.map((_, i) => (
+                  <span key={i} className="wiki-code-line-number">{i + 1}</span>
+                ))}
+              </div>
+              <div className="wiki-code-lines">
+                {codeLines.map((line, i) => (
+                  <div key={i} className="wiki-code-line">{line === '' ? '\u00A0' : line}</div>
+                ))}
+              </div>
+            </div>
+          ) : (
+            // single node: preserve whitespace
+            children
+          )}
+        </code>
+      </pre>
+    </div>
+  );
+}
+
+// --- WikiTable ---
+
+type TableRow = Record<string, any> | any[];
+
+type WikiTableProps = {
+  columns: string[]; // column keys / headers
+  data: TableRow[]; // either array-of-arrays (then columns order used) or array-of-objects
+  striped?: boolean;
+  bordered?: boolean;
+  compact?: boolean;
+  responsive?: boolean;
+  noHeader?: boolean;
+};
+
+export function WikiTable({ columns, data, striped = true, bordered = true, compact = false, responsive = true, noHeader = false }: WikiTableProps) {
+  const isArrayOfArrays = Array.isArray(data[0]);
+
+  return (
+    <div className={`wiki-table-wrapper ${responsive ? 'wiki-table-responsive' : ''}`}>
+      <table className={`wiki-table ${striped ? 'striped' : ''} ${bordered ? 'bordered' : ''} ${compact ? 'compact' : ''}`}>
+        {!noHeader && (
+          <thead>
+            <tr>
+              {columns.map((col) => (
+                <th key={col}>{col}</th>
+              ))}
+            </tr>
+          </thead>
+        )}
+        <tbody>
+          {data.map((row, ri) => (
+            <tr key={ri}>
+              {isArrayOfArrays
+                ? (row as any[]).map((cell, ci) => <td key={ci}>{cell}</td>)
+                : columns.map((col) => <td key={col}>{(row as Record<string, any>)[col]}</td>)
+              }
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
 export function WikiLayout({ title, sections, children }: WikiLayoutProps) {
   const [activeSection, setActiveSection] = useState<string>("");
   const [scrollProgress, setScrollProgress] = useState(0);

@@ -245,7 +245,7 @@ export function DryLabDescription() {
                 <MathJax>
                   {"$$d_{\\min}(g) = \\min_{k \\in \\text{DBAASP}} \\text{Levenshtein}(g, k)$$"}
                 </MathJax>
-              <WikiImage src="" alt="Novel Evaluation Using Levenshtein Distance" caption="Novel Evaluation Using Levenshtein Distance" />
+              <WikiImage src="https://static.igem.wiki/teams/6026/igem2025/drylab/description/levenshein-distance.webp" alt="Novel Evaluation Using Levenshtein Distance" caption="Novel Evaluation Using Levenshtein Distance" />
             </WikiParagraph>
             <WikiParagraph>
               The Levenshtein distance counts the minimum insertions, deletions, and substitutions needed to transform one sequence into another. A distance of 1 means a single amino acid difference; a distance of 5 means at least five edits separate the sequences.
